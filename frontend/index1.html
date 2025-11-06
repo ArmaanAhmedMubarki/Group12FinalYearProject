@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Dashboard</title>
+    <style>
+        /* Basic reset */
+        body, h1, h2, p, ul, li {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            background-color: #333;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            margin: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f9a826;
+        }
+
+        /* Main Hero Section */
+        .hero {
+            background-image: url('images/ii5.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.8rem;
+            color: #d3d3d3;
+            margin: 0 auto;
+            max-width: 800px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-out 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Content */
+        /* Container for cards */
+/* Container for cards */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Individual card styling */
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column; /* Ensure all items stack vertically */
+    align-items: center;
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Card image */
+.card-image {
+    width: 100%; /* Full width of the card */
+    height: 200px; /* Increased height for better visibility */
+    object-fit: cover; /* Ensures the image fills the section */
+    display: block;
+}
+
+
+/* Card content */
+.card-content {
+    padding: 15px;
+    text-align: center;
+    flex: 1; /* Makes content area grow uniformly */
+}
+
+/* Card heading */
+.card-content h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 10px 0;
+    height: 50px; /* Fixed height for alignment */
+    display: flex;
+    align-items: center; /* Vertically align text */
+    justify-content: center; /* Horizontally align text */
+}
+
+/* Card paragraph */
+.card-content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    height: 80px; /* Fixed height for alignment */
+    overflow: hidden; /* Truncate excess text */
+    display: flex;
+    align-items: center; /* Vertically align text */
+    justify-content: center; /* Horizontally align text */
+}
+
+/* Responsive grid */
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+}
+
+
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-content {
+                flex-direction: column;
+            }
+
+            .section-image {
+                max-width: 100%;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Athlete Navigation Bar -->
+<header class="navbar">
+    <div class="logo">Athlete </div>
+    <nav>
+        <ul class="nav-links">
+
+            <li><a href="#news">News</a></li>
+            <li><a href="upcoming.html">Events</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#coaches">Coaches</a></li>
+            <li><a href="athlete.html">Dashboard</a></li>
+
+            <!-- <li><a href="athleteProfile.html">Profile</a></li> -->
+            <li><a href="index.html" onclick="logout()">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome, Athlete!</h1>
+        <p>Your arena for news, events, results, and more.</p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<main>
+    <!-- Additional content can go here -->
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <img src="images/latest.jpg" alt="News" class="card-image">
+            <div class="card-content">
+                <h2>Latest News</h2>
+                <p>Catch up with the latest happenings in the world of sports, from tournaments to athlete stories.</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <a href="upcoming.html" class="card-link">
+            <div class="card">
+                <img src="images/ue.avif" alt="Events" class="card-image">
+                <div class="card-content">
+                    <h2>Upcoming Events</h2>
+                    <p>Don't miss out on our upcoming sports events and tournaments. Join us and be part of the excitement!</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <img src="images/result.jpg" alt="Results" class="card-image">
+            <div class="card-content">
+                <h2>Match Results</h2>
+                <p>Explore recent match results and stay updated on scores and highlights.</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <img src="images/coa.png" alt="Coaches" class="card-image">
+            <div class="card-content">
+                <h2>Our Coaches</h2>
+                <p>Meet the experienced coaches guiding our athletes to success.</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 Athlete Dashboard. All Rights Reserved.</p>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    function logout() {
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        /* upcoming page styles */
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Header and Nav */
+h1, h4 {
+    color: #343a40;
+    font-weight: bold;
+}
+
+/* Navbar styles (same as register page) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0011af;
+    padding: 0 20px;
+    height: 70px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+}
+
+.navbar .logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f9a826;
+    text-transform: none; /* Keep AthleticaX case as-is */
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.navbar ul li a:hover {
+    background-color: #6A1B9A;
+    color: #f9a826;
+}
+
+
+nav a {
+    text-decoration: none;
+    color: #343a40;
+    font-weight: 500;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+/* Add spacing and alignment for header */
+.header-bar {
+    background: #ffffff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Section */
+/* Hero Header Section */
+.events-header {
+    background: linear-gradient(to right, rgba(18, 19, 20, 0.7), rgba(0, 86, 179, 0.7)),
+                url('images/h2.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.header-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 8px rgb(179, 255, 0);
+    font-family: 'Montserrat', sans-serif;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+
+.header-content p {
+    font-size: 1.6rem;
+    margin: 0;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    font-family: 'Roboto', sans-serif;
+    animation: slideUp 1.8s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Events Section */
+.events-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.events-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Events Grid Container */
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four cards per row */
+  gap: 20px;
+  justify-items: center; /* Center cards within grid cells */
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* Event Card Styles */
+.event-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  height: 390px; /* Set a fixed height for uniformity */
+  overflow: hidden;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column; /* Ensures proper layout for image and text */
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px; /* Fix the height to ensure uniformity */
+  object-fit: cover; /* Ensures the image fits properly */
+  display: block;
+}
+
+.event-details {
+  padding: 15px;
+  flex-grow: 1; /* Ensures text section fills available space evenly */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Aligns content evenly */
+}
+
+.event-details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #42464a;
+  text-align: center; /* Center aligns heading */
+}
+
+.event-details p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #666;
+  text-align: center; /* Center aligns description */
+}
+
+/* Register Button */
+.register-btn {
+  display: block;
+  margin: 10px auto 0;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Footer Section */
+.events-footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.events-footer p {
+  font-size: 1rem;
+  margin: 0;
+}
+/* Popup Container */
+#popup-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        z-index: 1000;
+        text-align: center;
+        width: 300px;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+
+    /* Popup Content */
+    .popup-content {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    /* Popup Text */
+    #popup-text {
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    /* Close Button */
+    .popup-close-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .popup-close-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Optional: Backdrop */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 999;
+    }
+
+    body.popup-active::after {
+        display: block;
+    }
+    </style>
+</head>
+<body>
+
+      <!-- Header -->
+    <!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">AthleticaX</div>
+    <ul>
+        <li><a href="Welcome.html">Home</a></li>
+        <li><a href="upcoming.html">Events</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="coach.html">Coaches</a></li>
+        <li><a href="#">Athletes</a></li>
+        <li><a href="athleteProfile.html">Profile</a></li>
+        <li><a href="index.html">Logout</a></li>
+    </ul>
+</nav>
+
+    <hr>
+    <!-- Header -->
+    <header class="events-header">
+        <div class="header-content">
+            <h1 class="event-title">Upcoming Events</h2>
+            <p>Don't miss out on our latest sports events and tournaments!</p>
+        </div>
+    </header>
+
+    <!-- Events Section -->
+       <!-- Events Section -->
+       <main>
+        <section class="events-section">
+            <h2>Register Now</h2>
+            <div class="events-container">
+                <!-- Event Cards -->
+                <div class="event-card">
+                    <img src="images/mc.jpg" alt="Marathon Championship" class="event-image">
+                    <div class="event-details">
+                        <h3>Marathon Championship</h3>
+                        <p>Date: December 10, 2024</p>
+                        <p>Location: Central Park</p>
+                        <button class="register-btn" data-event-id="marathon-championship">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/bb.webp" alt="Basketball League" class="event-image">
+                    <div class="event-details">
+                        <h3>Basketball League</h3>
+                        <p>Date: January 15, 2025</p>
+                        <p>Location: Sports Arena</p>
+                        <button class="register-btn" data-event-id="basketball-league">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/sc.webp" alt="Soccer Tournament" class="event-image">
+                    <div class="event-details">
+                        <h3>Soccer Tournament</h3>
+                        <p>Date: February 5, 2025</p>
+                        <p>Location: Greenfield Stadium</p>
+                        <button class="register-btn" data-event-id="soccer-tournament">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/tt.jpeg" alt="Tennis Open" class="event-image">
+                    <div class="event-details">
+                        <h3>Tennis Open</h3>
+                        <p>Date: March 10, 2025</p>
+                        <p>Location: National Tennis Court</p>
+                        <button class="register-btn" data-event-id="tennis-open">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/bm.jpg" alt="Badminton Tournament" class="event-image">
+                    <div class="event-details">
+                        <h3>Badminton Tournament</h3>
+                        <p>Date: April 12, 2025</p>
+                        <p>Location: City Sports Hall</p>
+                        <button class="register-btn" data-event-id="badminton-tournament">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/cc.jpg" alt="Cricket League" class="event-image">
+                    <div class="event-details">
+                        <h3>Cricket League</h3>
+                        <p>Date: May 20, 2025</p>
+                        <p>Location: National Cricket Ground</p>
+                        <button class="register-btn" data-event-id="cricket-league">Register</button>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/sm.avif" alt="Event 7" class="event-image">
+                    <div class="event-details">
+                        <h3>Swimming Gala</h3>
+                        <p>Date: June 5, 2025</p>
+                        <p>Location: Blue Lagoon Arena</p>
+
+                        <button class="register-btn">Register</button>
+
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="images/gf.jpg" alt="Event 8" class="event-image">
+                    <div class="event-details">
+                        <h3>Golf Championship</h3>
+                        <p>Date: July 15, 2025</p>
+                        <p>Location: Golden Golf Club</p>
+
+                        <button class="register-btn">Register</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="events-footer">
+        <p>© 2025 Sports Portal. All Rights Reserved.</p>
+    </footer>
+
+   <!-- Popup Message -->
+<div id="popup-message" class="hidden popup">
+    <div class="popup-content">
+        <span id="popup-text"></span>
+        <button id="close-popup" class="popup-close-btn">Close</button>
+    </div>
+</div>
+
+
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".register-btn");
+    const popup = document.getElementById("popup-message");
+    const popupText = document.getElementById("popup-text");
+    const closePopup = document.getElementById("close-popup");
+
+    // Close popup event
+    closePopup.addEventListener("click", () => {
+        popup.classList.add("hidden");
+        document.body.classList.remove("popup-active");
+    });
+
+    // Handle register button clicks
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const eventId = button.getAttribute("data-event-id");
+            const isRegistered = localStorage.getItem(eventId);
+
+            if (isRegistered === "true") {
+                popupText.textContent = "You have already registered for this event.";
+            } else {
+                localStorage.setItem(eventId, "true");
+                popupText.textContent = "Registration successful!";
+            }
+
+            popup.classList.remove("hidden");
+            document.body.classList.add("popup-active");
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>

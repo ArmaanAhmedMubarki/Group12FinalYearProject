@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h4 {
+            color: #343a40;
+            font-weight: bold;
+        }
+
+        .profile-section img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .profile-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .profile-button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .edit-form-container {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Athlete Profile</h1>
+        <nav>
+            <a href="index1.html">Home</a>
+            <a href="#">News</a>
+            <a href="upcoming.html">Events</a>
+            <a href="#">Results</a>
+            <a href="coachProfile.html">Coaches</a>
+
+            <a href="athlete.html">Dashboard</a> <!-- Link to Dashboard -->
+            <a href="index.html">Logout</a>
+        </nav>
+    </div>
+    <hr>
+
+    <!-- Profile Section -->
+    <div class="profile-section d-flex align-items-center mt-4">
+        <img id="profile-image" src="https://via.placeholder.com/150" alt="Athlete Picture">
+        <div class="ms-4">
+            <h3 id="profile-name">Liam Carter</h3>
+            <p>
+                <strong>Date of Birth:</strong> <span id="dob">10/10/2000</span><br>
+                <strong>Gender:</strong> <span id="gender">Male</span><br>
+                <strong>Height:</strong> <span id="height">170 cm</span><br>
+                <strong>Weight:</strong> <span id="weight">60 kg</span><br>
+                <strong>Category:</strong> <span id="category">100M</span><br>
+                <strong>Coach:</strong> <span id="coach">N/A</span>
+            </p>
+            <button class="profile-button" onclick="editProfile()">Edit Profile</button>
+        </div>
+    </div>
+
+    <!-- Edit Form Section -->
+    <div class="edit-form-container">
+        <h4>Edit Profile</h4>
+        <form id="edit-form">
+            <div class="form-group">
+                <label for="edit-image" class="form-label">Profile Picture</label>
+                <input type="file" class="form-input" id="edit-image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="edit-name" class="form-label">Name</label>
+                <input type="text" class="form-input" id="edit-name" value="Liam Carter">
+            </div>
+            <div class="form-group">
+                <label for="edit-dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-input" id="edit-dob" value="2000-10-10">
+            </div>
+            <div class="form-group">
+                <label for="edit-gender" class="form-label">Gender</label>
+                <select class="form-input" id="edit-gender">
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="edit-height" class="form-label">Height (cm)</label>
+                <input type="number" class="form-input" id="edit-height" value="170">
+            </div>
+            <div class="form-group">
+                <label for="edit-weight" class="form-label">Weight (kg)</label>
+                <input type="number" class="form-input" id="edit-weight" value="60">
+            </div>
+            <div class="form-group">
+                <label for="edit-category" class="form-label">Category</label>
+                <input type="text" class="form-input" id="edit-category" value="100M">
+            </div>
+            <div class="form-group">
+                <label for="edit-coach" class="form-label">Coach</label>
+                <input type="text" class="form-input" id="edit-coach" value="N/A">
+            </div>
+            <button type="button" class="profile-button" onclick="saveProfile()">Save Changes</button>
+        </form>
+    </div>
+    <!-- Tabbed Content for Applied Events -->
+    <div class="mt-4">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#overview" onclick="showTab('overview')">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#applied-events" onclick="showTab('applied-events')">Applied Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#wellness" onclick="showTab('wellness')">Wellness</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-pane active">
+                <p>Details about the athlete's overview can go here.</p>
+            </div>
+
+            <!-- Applied Events Tab -->
+            <div id="applied-events" class="tab-pane">
+                <h4>Applied Events</h4>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>EVENT ID</th>
+                        <th>EVENT NAME</th>
+                        <th>CATEGORY</th>
+                        <th>STATUS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>E_00007</td>
+                        <td>DiscusForce Throw</td>
+                        <td>Throw</td>
+                        <td>PENDING</td>
+                    </tr>
+                    <tr>
+                        <td>E_00006</td>
+                        <td>RelayChamp 4x400m</td>
+                        <td>4x400m</td>
+                        <td>PENDING</td>
+                    </tr>
+                    <tr>
+                        <td>E_00001</td>
+                        <td>Rapid Dash</td>
+                        <td>100M</td>
+                        <td>APPROVED</td>
+                    </tr>
+                    <tr>
+                        <td>E_00004</td>
+                        <td>VaultKing Pole Vault</td>
+                        <td>10M</td>
+                        <td>REJECTED</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Wellness Tab -->
+            <div id="wellness" class="tab-pane">
+                <p>Wellness details and other related information can be displayed here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    function editProfile() {
+    document.querySelector('.edit-form-container').style.display = 'block';
+}
+
+function saveProfile() {
+    const name = document.getElementById('edit-name').value;
+    const dob = document.getElementById('edit-dob').value;
+    const gender = document.getElementById('edit-gender').value;
+    const height = document.getElementById('edit-height').value;
+    const weight = document.getElementById('edit-weight').value;
+    const category = document.getElementById('edit-category').value;
+    const coach = document.getElementById('edit-coach').value;
+    const imageInput = document.getElementById('edit-image');
+
+    // Update profile picture
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profile-image').src = e.target.result;
+            localStorage.setItem('profileImage', e.target.result); // Save to localStorage
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+    }
+
+    // Save profile data to localStorage
+    const profileData = { name, dob, gender, height, weight, category, coach };
+    localStorage.setItem('profile', JSON.stringify(profileData));
+
+    // Update both Athlete Profile and Dashboard
+    updateProfileView();
+    updateDashboard(); // Added this function call
+
+    // Hide edit form
+    document.querySelector('.edit-form-container').style.display = 'none';
+}
+
+function updateProfileView() {
+    const profileData = JSON.parse(localStorage.getItem('profile'));
+    if (profileData) {
+        document.getElementById('profile-name').textContent = profileData.name;
+        document.getElementById('dob').textContent = profileData.dob;
+        document.getElementById('gender').textContent = profileData.gender;
+        document.getElementById('height').textContent = profileData.height + ' cm';
+        document.getElementById('weight').textContent = profileData.weight + ' kg';
+        document.getElementById('category').textContent = profileData.category;
+        document.getElementById('coach').textContent = profileData.coach;
+    }
+
+    const profileImage = localStorage.getItem('profileImage');
+    if (profileImage) {
+        document.getElementById('profile-image').src = profileImage;
+    }
+}
+
+function updateDashboard() {
+    // Save updates for Dashboard page
+    const dashboardData = JSON.parse(localStorage.getItem('profile'));
+    if (dashboardData) {
+        // Custom event to inform the dashboard of updates
+        const dashboardUpdateEvent = new CustomEvent('dashboardUpdate', { detail: dashboardData });
+        window.dispatchEvent(dashboardUpdateEvent);
+    }
+    const dashboardImage = localStorage.getItem('profileImage');
+    if (dashboardImage) {
+        localStorage.setItem('dashboardImage', dashboardImage); // Update dashboard image in storage
+    }
+}
+
+window.onload = function () {
+    updateProfileView();
+};
+function showTab(tabName) {
+        document.querySelectorAll('.tab-pane').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(tabName).classList.add('active');
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        document.querySelector(`.nav-link[href="#${tabName}"]`).classList.add('active');
+    }
+
+
+</script>
+
+</body>
+
+</html>

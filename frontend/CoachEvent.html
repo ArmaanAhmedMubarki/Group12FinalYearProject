@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Page</title>
+    <style>
+        /* Basic Reset */
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to right, #ece9e6, #ffffff);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background span {
+            position: absolute;
+            display: block;
+            width: 100px;
+            height: 100px;
+            background: rgba(249, 168, 38, 0.3);
+            animation: move 8s infinite;
+            border-radius: 50%;
+        }
+
+        .background span:nth-child(1) {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+            width: 120px;
+            height: 120px;
+        }
+
+        .background span:nth-child(2) {
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .background span:nth-child(3) {
+            top: 60%;
+            left: 25%;
+            animation-delay: 4s;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Navbar Styles */
+        /* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f9a826;
+    flex: 1; /* Ensures the logo stays on the left side */
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 25px; /* Add space between navbar items */
+    flex: 3; /* Adjust the flex-grow to space the navbar */
+    justify-content: flex-end; /* Align navbar items to the right */
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    padding: 8px 15px; /* Add padding for better clickability */
+    border-radius: 5px;
+}
+
+.navbar ul li a:hover {
+    background-color: #444;
+    color: #f9a826;
+}
+
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* Title */
+        .section-title {
+            font-size: 2.8rem;
+            color: #444;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            animation: fadeInDown 1s ease;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: linear-gradient(to bottom, #ffffff, #f7f7f7);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            animation: fadeInUp 1s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* .card-header {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        } */
+        .card-header {
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0; /* Rounded top corners */
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the space without distortion */
+    display: block;
+}
+
+
+        .upcoming {
+            background-image: url('upcoming.jpg');
+        }
+
+        .ongoing {
+            background-image: url('ongoing.jpg');
+        }
+
+        .registered {
+            background-image: url('registered.jpg');
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-body h3 {
+            font-size: 1.7rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .card-body p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Button */
+        .card-body a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background-color: #f9a826;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .card-body a:hover {
+            background-color: #e08d1e;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-top: 30px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Background Animation -->
+<div class="background">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">Sports Events</div>
+    <ul>
+        <li><a href="index1.html">Home</a></li>
+        <li><a href="#news">News</a></li>
+
+
+        <li><a href="#results">Results</a></li>
+        <li><a href="#coaches">Athlete</a></li>
+        <li><a href="coach.html">Dashboard</a></li>
+
+
+        <li><a href="index.html" onclick="logout()">Logout</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <h1 class="section-title">Events</h1>
+
+    <!-- Card Grid -->
+    <div class="card-grid">
+        <div class="card" onclick="window.location.href='upcoming.html'">
+            <div class="card-header">
+                <img src="ii4.jpg" alt="Upcoming Events" class="card-image">
+            </div>
+            <div class="card-body">
+                <h3>Upcoming Events</h3>
+                <p>View and register for upcoming events.</p>
+                <a href="upcoming.html">View More</a>
+            </div>
+        </div>
+
+        <div class="card" onclick="window.location.href='ongoing.html'">
+            <div class="card-header">
+                <img src="ii4.jpg" alt="Ongoing Events" class="card-image">
+            </div>
+            <div class="card-body">
+                <h3>Ongoing Events</h3>
+                <p>Check details of events happening right now.</p>
+                <a href="ongoing.html">View More</a>
+            </div>
+        </div>
+
+        <div class="card" onclick="window.location.href='registered.html'">
+            <div class="card-header">
+                <img src="ii4.jpg" alt="Registered Events" class="card-image">
+            </div>
+            <div class="card-body">
+                <h3>Supervised Events</h3>
+                <p>View all the events you've Supervised for.</p>
+                <a href="Supervised.html">View More</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Sports Management Platform. All rights reserved.</p>
+</footer>
+
+<script>
+    // Optional: Add a smooth fade-in animation for cards
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+        });
+    });
+</script>
+</body>
+</html>
+

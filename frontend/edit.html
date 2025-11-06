@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Athlete Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 100px;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #7398bf;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], input[type="date"], input[type="number"], select, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="file"] {
+            border: none;
+        }
+        .profile-img {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .profile-img img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid #7398bf;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #7398bf;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5d78a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Edit Athlete Profile</h1>
+        <div class="profile-img">
+            <input type="file" id="profileImageInput" accept="image/*" onchange="previewImage()">
+            <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Picture">
+        </div>
+
+        <form id="editProfileForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" value="Liam Carter">
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" value="2000-10-10">
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender">
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" value="170">
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" value="60">
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" value="100M">
+            </div>
+
+            <div class="form-group">
+                <label for="coach">Coach</label>
+                <input type="text" id="coach" value="N/A">
+            </div>
+
+            <div class="button-group">
+                <button type="button" onclick="saveProfile()">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage() {
+            const fileInput = document.getElementById('profileImageInput');
+            const imagePreview = document.getElementById('profileImage');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function saveProfile() {
+        const name = document.getElementById('name').value;
+        const dob = document.getElementById('dob').value;
+        const gender = document.getElementById('gender').value;
+        const height = document.getElementById('height').value;
+        const weight = document.getElementById('weight').value;
+        const category = document.getElementById('category').value;
+        const coach = document.getElementById('coach').value;
+
+        // Save data to local storage
+        localStorage.setItem('athleteProfile', JSON.stringify({
+            name, dob, gender, height, weight, category, coach
+        }));
+
+        alert('Profile saved successfully!');
+    }
+    </script>
+</body>
+</html>
