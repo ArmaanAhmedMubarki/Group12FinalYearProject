@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Know More - Sports Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0011af;
+            padding: 0 20px;
+            height: 70px;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f9a826;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #6A1B9A;
+            color: #f9a826;
+        }
+
+        .knowmore-section {
+            padding: 60px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .knowmore-section h1 {
+            font-size: 3rem;
+            color: #0011af;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .info-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-box h3 {
+            color: #0011af;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">Sports Portal</div>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="knowmore.html">Know More</a></li>
+            <li><a href="upcoming.html">Events</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="knowmore-section">
+    <h1>Know More</h1>
+
+    <div class="info-grid">
+        <div class="info-box">
+            <h3>For Athletes</h3>
+            <p>Track your performance, view upcoming competitions, and stay updated with sports events.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>For Coaches</h3>
+            <p>Manage training sessions, analyze player performance, and assign workouts efficiently.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>For Admin</h3>
+            <p>Handle event scheduling, manage users, and monitor the overall sports ecosystem.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Sports Portal. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -6,16 +6,13 @@
   <title>Register</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">AthleticaX</div>
     <ul>
       <li><a href="Welcome.html">Home</a></li>
       <li><a href="upcoming.html">Events</a></li>
-      <li><a href="#">News</a></li>
       <li><a href="index.html">Login</a></li>
       <li><a href="register.html">Sign Up</a></li>
     </ul>
@@ -24,47 +21,53 @@
   <main>
     <div class="container">
       <h2>Register</h2>
+
       <form id="registerForm">
         <input type="text" id="username" placeholder="Username" required>
         <input type="email" id="email" placeholder="Email" required>
         <input type="password" id="password" placeholder="Password" required>
+
+        <!-- ✅ FIXED ROLE DROPDOWN -->
         <select id="role" required>
-          <option value="" disabled selected>Select Role</option>
-          <option value="COACH">Coach</option>
-          <option value="ATHLETE">Athlete</option>
-          <option value="ADMIN">Admin</option>
+          <option value="">Select Role</option>
+          <option value="athlete">Athlete</option>
+          <option value="coach">Coach</option>
+          <option value="admin">Admin</option>
         </select>
+
         <button type="submit">Register</button>
       </form>
+
       <p>Already have an account? <a href="index.html">Login here</a></p>
     </div>
   </main>
 
+  <script src="api.js"></script>
   <script>
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const username = document.getElementById('username').value;
+      const name = document.getElementById('username').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const role = document.getElementById('role').value;
 
-      // Retrieve existing users
-      let users = JSON.parse(localStorage.getItem('users')) || [];
+      console.log("Sending register request...", { name, email, password, role });
 
-      // Check for duplicate email
-      if (users.some(u => u.email === email)) {
-        alert('Email already registered!');
-        return;
+      const result = await registerUser({ name, email, password, role });
+
+      console.log("Server response:", result);
+
+      if (result.message) {
+        alert(result.message);
+        window.location.href = 'index.html';
+      } else if (result.message === undefined && result.error) {
+        alert("Error: " + result.error);
+      } else {
+        alert("Registration failed.");
       }
-
-      // Add new user
-      users.push({ username, email, password, role });
-      localStorage.setItem('users', JSON.stringify(users));
-
-      alert('Registration successful! Please log in.');
-      window.location.href = 'index.html';
     });
   </script>
+
 </body>
 </html>

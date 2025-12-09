@@ -1,11 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
   <!-- Navbar -->
@@ -32,35 +32,53 @@
     </div>
   </main>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+  <!-- ✅ API FILE -->
+  <script src="api.js"></script>
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-      const user = users.find(u => u.email === email && u.password === password);
+    try {
+      const result = await loginUser({ email, password });
 
-      if (!user) {
-        alert('Invalid email or password!');
+      console.log("FULL LOGIN RESPONSE:", result); // ✅ DEBUG LINE
+
+      if (!result || !result.user) {
+        alert("❌ Invalid email or password");
         return;
       }
 
-      // Save current user
-      localStorage.setItem('activeUser', JSON.stringify(user));
+      // ✅ Save token + user
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("activeUser", JSON.stringify(result.user));
 
-      // Redirect based on role
-      if (user.role === 'ADMIN') {
-        window.location.href = 'admin.html';
-      } else if (user.role === 'COACH') {
-        window.location.href = 'index2.html';
-      } else if (user.role === 'ATHLETE') {
-        window.location.href = 'index1.html';
-      } else {
-        alert('Role not recognized.');
+      // ✅ Normalize role (fixes ADMIN vs admin issue)
+      const role = result.user.role.toLowerCase();
+      console.log("ROLE FROM BACKEND:", role);
+
+      // ✅ Redirect properly
+      if (role === "admin") {
+        window.location.href = "admin.html";
+      } 
+      else if (role === "coach") {
+        window.location.href = "index2.html";
+      } 
+      else if (role === "athlete") {
+        window.location.href = "index1.html";
+      } 
+      else {
+        alert("❌ Role not recognized: " + result.user.role);
       }
-    });
-  </script>
+
+    } catch (err) {
+      console.error("Login Error:", err);
+      alert("❌ Something went wrong during login");
+    }
+  });
+</script>
+
 </body>
 </html>
