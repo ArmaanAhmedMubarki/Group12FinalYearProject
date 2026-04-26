@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login OTP Verification</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">AthleticaX</div>
+    <ul>
+      <li><a href="Welcome.html">Home</a></li>
+      <li><a href="upcoming.html">Events</a></li>
+      <li><a href="index.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="container">
+      <h2>Enter OTP</h2>
+
+      <p id="emailDisplay"></p>
+
+      <input 
+        type="text" 
+        id="otp" 
+        placeholder="Enter 6-digit OTP" 
+        maxlength="6" 
+        required
+      >
+
+      <button onclick="verifyOtp()" class="auth-btn">
+        Verify OTP
+      </button>
+
+      <p>
+        Didn't receive OTP? 
+        <button onclick="resendOtp()" style="border:none; background:none; color:blue; cursor:pointer;">
+          Resend
+        </button>
+      </p>
+    </div>
+  </main>
+
+  <script src="api.js"></script>
+
+  <script>
+    // Show email on page
+    const email = localStorage.getItem("loginEmail");
+
+    if (!email) {
+      alert("❌ Session expired. Please login again.");
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("emailDisplay").innerText = "OTP sent to: " + email;
+
+    // Verify OTP
+    async function verifyOtp() {
+      const otp = document.getElementById("otp").value;
+
+      if (!otp) {
+        alert("❌ Please enter OTP");
+        return;
+      }
+
+      try {
+        const result = await verifyLoginOtp({ email, otp });
+
+        console.log("OTP VERIFY RESPONSE:", result);
+
+        if (result.success) {
+
+          // ✅ Save token
+          localStorage.setItem("token", result.token);
+
+          // ✅ Save user info
+          localStorage.setItem("activeUser", JSON.stringify(result.user));
+
+          const role = result.user.role.toLowerCase();
+
+          alert("✅ Login successful!");
+
+          // ✅ Redirect based on role
+          if (role === "admin") {
+            window.location.href = "admin.html";
+          } 
+          else if (role === "coach") {
+            window.location.href = "index2.html";
+          } 
+          else if (role === "athlete") {
+            window.location.href = "index1.html";
+          } 
+          else {
+            alert("❌ Unknown role");
+          }
+
+        } else {
+          alert("❌ " + result.message);
+        }
+
+      } catch (err) {
+        console.error("OTP Verify Error:", err);
+        alert("❌ Something went wrong");
+      }
+    }
+
+    // 🔁 Resend OTP (calls login again)
+    async function resendOtp() {
+     const email = localStorage.getItem("loginEmail");
+
+     try {
+       const result = await resendLoginOtp({ email });
+
+       if (result.success) {
+         alert("✅ OTP resent");
+       } else {
+         alert("❌ " + result.message);
+       }
+
+      } catch (err) {
+      console.error(err);
+      alert("❌ Failed to resend OTP");
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration OTP Verification</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4f6f8;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 350px;
+      padding: 25px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    #emailText {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #007bff;
+      font-size: 14px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Verify OTP</h2>
+
+    <p id="emailText"></p>
+
+    <input 
+      type="text" 
+      id="otp" 
+      placeholder="Enter 6-digit OTP" 
+      maxlength="6" 
+      required
+    >
+
+    <button onclick="verify()">Verify</button>
+
+    <a href="register.html">← Back to Register</a>
+  </div>
+
+  <script src="api.js"></script>
+
+  <script>
+    const email = localStorage.getItem("verifyEmail");
+
+    if (!email) {
+      alert("❌ No email found. Please register again.");
+      window.location.href = "register.html";
+    }
+
+    document.getElementById("emailText").innerText = "OTP sent to: " + email;
+
+    async function verify() {
+      const otp = document.getElementById("otp").value;
+
+      if (!otp) {
+        alert("❌ Please enter OTP");
+        return;
+      }
+
+      try {
+        const result = await verifyOtp({ email, otp });
+
+        if (result.success) {
+          alert("✅ Verification successful!");
+
+          localStorage.removeItem("verifyEmail");
+          window.location.href = "index.html";
+        } else {
+          alert("❌ " + (result.message || "Verification failed"));
+        }
+
+      } catch (err) {
+        console.error(err);
+        alert("❌ Something went wrong");
+      }
+    }
+  </script>
+
+</body>
+</html>

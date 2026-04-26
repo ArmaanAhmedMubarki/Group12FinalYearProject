@@ -35,49 +35,35 @@
   <!-- ✅ API FILE -->
   <script src="api.js"></script>
 <script>
-  document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    try {
-      const result = await loginUser({ email, password });
+  try {
+    const result = await loginUser({ email, password });
 
-      console.log("FULL LOGIN RESPONSE:", result); // ✅ DEBUG LINE
+    console.log("LOGIN RESPONSE:", result);
 
-      if (!result || !result.user) {
-        alert("❌ Invalid email or password");
-        return;
-      }
+    if (result.success) {
+      alert("✅ OTP sent to your email");
 
-      // ✅ Save token + user
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("activeUser", JSON.stringify(result.user));
+      // ✅ Save email for OTP step
+      localStorage.setItem("loginEmail", email);
 
-      // ✅ Normalize role (fixes ADMIN vs admin issue)
-      const role = result.user.role.toLowerCase();
-      console.log("ROLE FROM BACKEND:", role);
+      // 👉 Redirect to OTP page
+      window.location.href = "login-otp.html";
 
-      // ✅ Redirect properly
-      if (role === "admin") {
-        window.location.href = "admin.html";
-      } 
-      else if (role === "coach") {
-        window.location.href = "index2.html";
-      } 
-      else if (role === "athlete") {
-        window.location.href = "index1.html";
-      } 
-      else {
-        alert("❌ Role not recognized: " + result.user.role);
-      }
-
-    } catch (err) {
-      console.error("Login Error:", err);
-      alert("❌ Something went wrong during login");
+    } else {
+      alert("❌ " + result.message);
     }
-  });
+
+  } catch (err) {
+    console.error("Login Error:", err);
+    alert("❌ Something went wrong");
+  }
+});
 </script>
 
 </body>
