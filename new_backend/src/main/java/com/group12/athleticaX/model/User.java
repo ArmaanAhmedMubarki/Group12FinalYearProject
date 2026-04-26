@@ -20,6 +20,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private boolean verified;
+
     public enum Role { ATHLETE, COACH, ADMIN }
 
     // -------- GETTERS & SETTERS --------
@@ -28,12 +30,12 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -45,7 +47,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getPassword() {
@@ -62,5 +64,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 }

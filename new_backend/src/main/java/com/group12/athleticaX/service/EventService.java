@@ -3,6 +3,7 @@ package com.group12.athleticaX.service;
 import com.group12.athleticaX.model.Event;
 import com.group12.athleticaX.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,17 +21,17 @@ public class EventService {
     }
 
     // Create event
-    public Event createEvent(Event event) {
+    public Event createEvent(@NonNull Event event) {
         return eventRepository.save(event);
     }
 
     // Get event by ID
-    public Optional<Event> getEventById(Long id) {
+    public Optional<Event> getEventById(@NonNull Long id) {
         return eventRepository.findById(id);
     }
 
     // Update event
-    public Event updateEvent(Long id, Event updatedEvent) {
+    public Event updateEvent(@NonNull Long id, @NonNull Event updatedEvent) {
 
         Event existingEvent = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
@@ -43,7 +44,7 @@ public class EventService {
     }
 
     // Delete event
-    public void deleteEvent(Long id) {
+    public void deleteEvent(@NonNull Long id) {
         eventRepository.deleteById(id);
     }
 }
